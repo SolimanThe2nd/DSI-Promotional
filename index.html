@@ -1,0 +1,2043 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DSI-Technology — Data, Science & Innovation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto:wght@400;500&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── CSS Reset & Variables ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-primary-bg:    #FFFFFF;
+      --color-secondary-bg:  #F8FAFC;
+      --color-text-main:     #0A192F;
+      --color-text-muted:    #334155;
+      --color-accent-cyan:   #00E5FF;
+      --color-accent-violet: #4C1D95;
+      --color-border:        #E2E8F0;
+      --font-heading:        'Inter', sans-serif;
+      --font-body:           'Roboto', sans-serif;
+      --radius-sm:           4px;
+      --radius-md:           8px;
+      --shadow-subtle:       0 4px 6px -1px rgba(0,0,0,0.10);
+      --shadow-hover:        0 10px 15px -3px rgba(0,0,0,0.12);
+      --max-w:               1200px;
+      --transition:          0.25s ease;
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    /* Make sure decorative background layers and SVGs never intercept clicks */
+    .hero-bg-grid, .cta-box::before, .cta-box-glow, #impact::before { pointer-events: none; }
+    .btn svg, .service-link svg, .nav-logo svg { pointer-events: none; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text-main);
+      background: var(--color-primary-bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Utility ────────────────────────────────────────────────────── */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+    .tag {
+      display: inline-block;
+      font-family: var(--font-heading);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-accent-cyan);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--color-text-main);
+      line-height: 1.2;
+    }
+    .section-subtitle {
+      font-size: 17px;
+      color: var(--color-text-muted);
+      max-width: 580px;
+      margin-top: 14px;
+    }
+    .section-header { margin-bottom: 56px; }
+    .section-header.centered { text-align: center; }
+    .section-header.centered .section-subtitle { margin: 14px auto 0; }
+
+    /* ─── Navigation ─────────────────────────────────────────────────── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--color-text-main);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    #navbar.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,0.35); }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      height: 38px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+    .footer-brand .nav-logo img { height: 44px; }
+    @media (max-width: 768px) {
+      .nav-logo img { height: 30px; }
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      transition: color var(--transition), background var(--transition);
+    }
+    .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.07); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      padding: 10px 22px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all var(--transition);
+      letter-spacing: -0.01em;
+    }
+    .btn-primary {
+      background: var(--color-accent-cyan);
+      color: var(--color-text-main);
+      border: none;
+    }
+    .btn-primary:hover {
+      background: #33eeff;
+      box-shadow: 0 0 24px rgba(0,229,255,0.35);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    .btn-secondary:hover { border-color: #fff; }
+
+    .btn-outline-navy {
+      background: transparent;
+      color: var(--color-text-main);
+      border: 2px solid var(--color-text-main);
+    }
+    .btn-outline-navy:hover { background: var(--color-text-main); color: #fff; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      width: 22px; height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+
+    /* ─── Hero ───────────────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: var(--color-text-main);
+      overflow: hidden;
+      padding-top: 68px;
+    }
+
+    .hero-bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-bg-glow {
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(76,29,149,0.35) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-bg-glow2 {
+      position: absolute;
+      bottom: -150px; left: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(0,229,255,0.10) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      padding: 80px 0;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,229,255,0.08);
+      border: 1px solid rgba(0,229,255,0.2);
+      border-radius: var(--radius-sm);
+      padding: 6px 14px;
+      margin-bottom: 24px;
+    }
+    .hero-eyebrow span {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent-cyan);
+    }
+    .hero-eyebrow .dot {
+      width: 6px; height: 6px;
+      background: var(--color-accent-cyan);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.75); }
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(36px, 4.5vw, 58px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .hero-title .accent { color: var(--color-accent-cyan); }
+
+    .hero-desc {
+      font-size: 17px;
+      color: rgba(255,255,255,0.65);
+      max-width: 500px;
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+
+    .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 48px;
+      padding-top: 48px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .hero-stat-item {}
+    .hero-stat-value {
+      font-family: var(--font-heading);
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.03em;
+    }
+    .hero-stat-value span { color: var(--color-accent-cyan); }
+    .hero-stat-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 2px;
+    }
+
+    /* Hero Visual */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .dashboard-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      width: 100%;
+      max-width: 480px;
+      backdrop-filter: blur(10px);
+    }
+    .dashboard-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .dashboard-title {
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(0,229,255,0.1);
+      border: 1px solid rgba(0,229,255,0.2);
+      border-radius: var(--radius-sm);
+      padding: 3px 10px;
+      font-family: var(--font-heading);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-accent-cyan);
+    }
+    .status-badge .live-dot {
+      width: 5px; height: 5px;
+      background: var(--color-accent-cyan);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .metric-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+    }
+    .metric-label { font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 6px; }
+    .metric-value {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .metric-value.cyan { color: var(--color-accent-cyan); }
+    .metric-change {
+      font-size: 11px;
+      color: #22c55e;
+      margin-top: 3px;
+    }
+
+    .chart-area {
+      height: 100px;
+      position: relative;
+      margin-bottom: 16px;
+    }
+    .chart-area svg { width: 100%; height: 100%; }
+
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 80px;
+      padding-top: 8px;
+    }
+    .bar {
+      flex: 1;
+      border-radius: 2px 2px 0 0;
+      transition: opacity var(--transition);
+    }
+    .bar:hover { opacity: 0.8; }
+
+    .activity-list { display: flex; flex-direction: column; gap: 8px; }
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      background: rgba(255,255,255,0.02);
+      border-radius: var(--radius-sm);
+    }
+    .activity-icon {
+      width: 28px; height: 28px;
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+    .activity-text { font-size: 12px; color: rgba(255,255,255,0.6); flex: 1; }
+    .activity-time { font-size: 11px; color: rgba(255,255,255,0.3); }
+
+    /* Floating cards */
+    .float-card {
+      position: absolute;
+      background: rgba(10,25,47,0.9);
+      border: 1px solid rgba(0,229,255,0.2);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .float-card-1 {
+      top: -20px; left: -40px;
+      animation: float1 4s ease-in-out infinite;
+    }
+    .float-card-2 {
+      bottom: -10px; right: -30px;
+      animation: float2 5s ease-in-out infinite;
+    }
+    @keyframes float1 {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+    .float-label { font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
+    .float-value {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--color-accent-cyan);
+    }
+    .float-sub { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+    /* ─── Clients / Trust Bar ────────────────────────────────────────── */
+    #clients {
+      padding: 32px 0;
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-secondary-bg);
+    }
+    .clients-inner {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      overflow: hidden;
+    }
+    .clients-label {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .clients-track {
+      display: flex;
+      gap: 48px;
+      align-items: center;
+      animation: marquee 25s linear infinite;
+      flex-shrink: 0;
+    }
+    .client-logo {
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 700;
+      color: #94a3b8;
+      white-space: nowrap;
+      letter-spacing: -0.01em;
+      transition: color var(--transition);
+    }
+    .client-logo:hover { color: var(--color-text-muted); }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ─── Services ───────────────────────────────────────────────────── */
+    #services { padding: 100px 0; background: var(--color-primary-bg); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--color-primary-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--color-accent-cyan);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+    .service-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-4px);
+      border-color: rgba(0,229,255,0.25);
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon {
+      width: 52px; height: 52px;
+      background: var(--color-secondary-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      transition: all var(--transition);
+    }
+    .service-card:hover .service-icon {
+      background: rgba(0,229,255,0.08);
+      border-color: rgba(0,229,255,0.25);
+    }
+    .service-icon svg { width: 24px; height: 24px; color: var(--color-text-muted); }
+    .service-card:hover .service-icon svg { color: var(--color-accent-cyan); }
+
+    .service-card h3 {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      color: var(--color-text-main);
+    }
+    .service-card p {
+      font-size: 15px;
+      color: var(--color-text-muted);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+    .service-link {
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-main);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap var(--transition), color var(--transition);
+    }
+    .service-link:hover { gap: 10px; color: var(--color-accent-cyan); }
+
+    /* ─── Why DSI ─────────────────────────────────────────────────────── */
+    #why {
+      padding: 100px 0;
+      background: var(--color-secondary-bg);
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .why-visual {
+      position: relative;
+    }
+    .why-card-stack {
+      position: relative;
+      height: 440px;
+    }
+    .w-card {
+      position: absolute;
+      background: var(--color-primary-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-subtle);
+    }
+    .w-card-main {
+      width: 100%;
+      top: 0; left: 0;
+      z-index: 3;
+    }
+    .w-card-back {
+      width: calc(100% - 32px);
+      top: 220px; left: 16px;
+      z-index: 2;
+      background: var(--color-secondary-bg);
+    }
+    .w-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .w-card-label {
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-muted);
+    }
+    .score-ring {
+      width: 54px; height: 54px;
+      position: relative;
+    }
+    .score-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .score-text {
+      position: absolute;
+      inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+
+    .progress-list { display: flex; flex-direction: column; gap: 14px; }
+    .progress-item {}
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+    .progress-meta span:first-child { color: var(--color-text-muted); font-weight: 500; }
+    .progress-meta span:last-child { color: var(--color-text-main); font-weight: 600; }
+    .progress-bar {
+      height: 6px;
+      background: var(--color-border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--color-accent-cyan);
+      border-radius: 3px;
+      transition: width 1.2s ease;
+    }
+    .progress-fill.violet { background: var(--color-accent-violet); }
+
+    .why-features { display: flex; flex-direction: column; gap: 28px; }
+    .why-feature {
+      display: flex;
+      gap: 18px;
+    }
+    .why-feature-icon {
+      width: 44px; height: 44px;
+      background: rgba(0,229,255,0.08);
+      border: 1px solid rgba(0,229,255,0.2);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .why-feature-icon svg { width: 20px; height: 20px; color: var(--color-accent-cyan); }
+    .why-feature h4 {
+      font-family: var(--font-heading);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    .why-feature p { font-size: 14px; color: var(--color-text-muted); line-height: 1.65; }
+
+    /* ─── Process ────────────────────────────────────────────────────── */
+    #process { padding: 100px 0; background: var(--color-primary-bg); }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 27px;
+      left: calc(12.5% + 27px);
+      right: calc(12.5% + 27px);
+      height: 1px;
+      background: linear-gradient(90deg, var(--color-border), var(--color-accent-cyan), var(--color-border));
+    }
+
+    .process-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 16px;
+    }
+    .step-number {
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      border: 2px solid var(--color-border);
+      background: var(--color-primary-bg);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-heading);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+      transition: all var(--transition);
+    }
+    .process-step:hover .step-number {
+      border-color: var(--color-accent-cyan);
+      background: var(--color-accent-cyan);
+      color: var(--color-text-main);
+    }
+    .process-step h4 {
+      font-family: var(--font-heading);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+    .process-step p { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; }
+
+    /* ─── Case Studies / Stats ───────────────────────────────────────── */
+    #impact {
+      padding: 100px 0;
+      background: var(--color-text-main);
+      position: relative;
+      overflow: hidden;
+    }
+    #impact::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(76,29,149,0.25) 0%, transparent 65%);
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-top: 56px;
+    }
+    .impact-item {
+      background: rgba(255,255,255,0.02);
+      padding: 40px 32px;
+      text-align: center;
+      transition: background var(--transition);
+    }
+    .impact-item:hover { background: rgba(0,229,255,0.05); }
+    .impact-number {
+      font-family: var(--font-heading);
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--color-accent-cyan);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .impact-number sup { font-size: 24px; vertical-align: super; }
+    .impact-desc {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+    }
+
+    .impact-header { position: relative; z-index: 1; }
+    .impact-header .section-title { color: #fff; }
+    .impact-header .section-subtitle { color: rgba(255,255,255,0.6); }
+
+    /* ─── Testimonials ───────────────────────────────────────────────── */
+    #testimonials { padding: 100px 0; background: var(--color-secondary-bg); }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .testimonial-card {
+      background: var(--color-primary-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      transition: all var(--transition);
+    }
+    .testimonial-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-4px);
+    }
+    .quote-mark {
+      font-size: 48px;
+      line-height: 1;
+      color: var(--color-accent-cyan);
+      font-family: Georgia, serif;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .testimonial-text {
+      font-size: 15px;
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .author-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--color-accent-violet), var(--color-accent-cyan));
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .author-name {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+    .author-role { font-size: 12px; color: var(--color-text-muted); margin-top: 2px; }
+
+    /* ─── CTA Banner ─────────────────────────────────────────────────── */
+    #cta {
+      padding: 80px 0;
+      background: var(--color-primary-bg);
+    }
+    .cta-box {
+      background: var(--color-text-main);
+      border-radius: var(--radius-md);
+      padding: 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .cta-box-glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px; height: 300px;
+      background: radial-gradient(ellipse, rgba(76,29,149,0.4) 0%, transparent 70%);
+    }
+    .cta-box > * { position: relative; z-index: 1; }
+    .cta-box .section-title { color: #fff; margin-bottom: 16px; }
+    .cta-box .section-subtitle { color: rgba(255,255,255,0.6); margin: 0 auto 36px; }
+    .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ─── Footer ─────────────────────────────────────────────────────── */
+    #footer {
+      background: var(--color-text-main);
+      padding: 64px 0 32px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.7;
+      margin-top: 14px;
+      max-width: 280px;
+    }
+    .footer-heading {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 16px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: #fff; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-bottom p { font-size: 13px; color: rgba(255,255,255,0.3); }
+
+    /* ─── Language Toggle ────────────────────────────────────────────── */
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-sm);
+      padding: 4px;
+      margin-right: 4px;
+    }
+    .lang-toggle button {
+      background: transparent;
+      border: none;
+      color: rgba(255,255,255,0.55);
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all var(--transition);
+      letter-spacing: 0.02em;
+    }
+    .lang-toggle button.active {
+      background: var(--color-accent-cyan);
+      color: var(--color-text-main);
+    }
+    .lang-toggle button:not(.active):hover { color: #fff; }
+
+    /* ─── RTL Overrides ──────────────────────────────────────────────── */
+    [dir="rtl"] {
+      --font-heading: 'Tajawal', 'Inter', sans-serif;
+      --font-body: 'Tajawal', 'Roboto', sans-serif;
+    }
+    [dir="rtl"] body { text-align: right; }
+
+    /* Flip directional arrow icons (the SVGs pointing right → left) */
+    [dir="rtl"] .hero-cta svg,
+    [dir="rtl"] .service-link svg,
+    [dir="rtl"] .cta-actions svg { transform: scaleX(-1); }
+
+    /* Marquee reverse direction */
+    [dir="rtl"] .clients-track { animation-direction: reverse; }
+
+    /* Hero floating cards mirror */
+    [dir="rtl"] .float-card-1 { left: auto; right: -40px; }
+    [dir="rtl"] .float-card-2 { right: auto; left: -30px; }
+
+    /* Hero stat value: keep numeric LTR feel */
+    [dir="rtl"] .hero-stat-value,
+    [dir="rtl"] .metric-value,
+    [dir="rtl"] .float-value,
+    [dir="rtl"] .impact-number,
+    [dir="rtl"] .score-text { direction: ltr; unicode-bidi: isolate; }
+
+    /* Progress bars fill from the right side in RTL */
+    [dir="rtl"] .progress-fill {
+      float: right;
+    }
+
+    /* Process line gradient direction stays — pseudo handles itself */
+
+    /* Logo text keeps LTR — DSI-Technology is a brand name */
+    [dir="rtl"] .logo-text { direction: ltr; }
+
+    /* Footer bottom: keep the two lines balanced in RTL */
+    [dir="rtl"] .footer-bottom { direction: rtl; }
+
+    /* Activity items: icon should be on the right in RTL (handled by flex auto) */
+    [dir="rtl"] .activity-time { direction: ltr; }
+
+    /* Tighten Tajawal letter-spacing — it doesn't need it */
+    [dir="rtl"] .hero-title,
+    [dir="rtl"] .section-title,
+    [dir="rtl"] .nav-logo .logo-text { letter-spacing: 0; }
+
+    /* Tags / eyebrows — Arabic doesn't need uppercase */
+    [dir="rtl"] .tag,
+    [dir="rtl"] .clients-label,
+    [dir="rtl"] .footer-heading,
+    [dir="rtl"] .dashboard-title,
+    [dir="rtl"] .hero-eyebrow span,
+    [dir="rtl"] .status-badge { text-transform: none; letter-spacing: 0.04em; }
+
+    /* ─── Responsive ─────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-steps { grid-template-columns: repeat(2, 1fr); }
+      .process-steps::before { display: none; }
+      .impact-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 0 18px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-inner { height: 60px; }
+      #navbar .btn-primary { padding: 8px 14px; font-size: 13px; }
+      .lang-toggle button { padding: 3px 8px; font-size: 11px; }
+
+      #hero { min-height: auto; padding-top: 88px; padding-bottom: 48px; }
+      .hero-content { grid-template-columns: 1fr; gap: 0; padding: 24px 0; }
+      .hero-visual { display: none; }
+      .hero-title { font-size: 34px; }
+      .hero-desc { font-size: 15px; margin-bottom: 28px; }
+      .hero-cta { width: 100%; }
+      .hero-cta .btn { flex: 1; justify-content: center; padding: 12px 16px; font-size: 13px; }
+      .hero-stats {
+        gap: 16px;
+        margin-top: 32px;
+        padding-top: 32px;
+        justify-content: space-between;
+      }
+      .hero-stat-value { font-size: 24px; }
+      .hero-stat-label { font-size: 11px; }
+
+      #clients { padding: 24px 0; }
+      .clients-inner { gap: 24px; }
+      .clients-label { font-size: 11px; }
+      .client-logo { font-size: 13px; }
+
+      #services, #why, #process, #impact, #testimonials { padding: 64px 0; }
+      #cta { padding: 48px 0; }
+      .section-header { margin-bottom: 36px; }
+      .section-title { font-size: 26px !important; }
+      .section-subtitle { font-size: 15px; }
+
+      .services-grid { grid-template-columns: 1fr; gap: 16px; }
+      .service-card { padding: 24px; }
+
+      .why-grid { grid-template-columns: 1fr; gap: 40px; }
+      .why-visual { display: none; }
+      .why-features { gap: 22px; }
+
+      .process-steps { grid-template-columns: 1fr; gap: 32px; }
+      .process-steps::before { display: none; }
+
+      .impact-grid { grid-template-columns: 1fr 1fr; }
+      .impact-item { padding: 28px 16px; }
+      .impact-number { font-size: 34px; }
+      .impact-number sup { font-size: 18px; }
+      .impact-desc { font-size: 12px; }
+
+      .testimonials-grid { grid-template-columns: 1fr; gap: 16px; }
+      .testimonial-card { padding: 24px; }
+
+      .cta-box { padding: 40px 22px; }
+      .cta-actions { flex-direction: column; }
+      .cta-actions .btn { width: 100%; justify-content: center; }
+
+      #footer { padding: 48px 0 24px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; margin-bottom: 32px; }
+      .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+      .footer-bottom p { font-size: 12px; }
+    }
+
+    @media (max-width: 420px) {
+      .hero-cta { flex-direction: column; }
+      .hero-cta .btn { width: 100%; }
+      .hero-stats { flex-direction: column; gap: 18px; }
+      .impact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Navigation ──────────────────────────────────────────────────── -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="logo-dark.png" alt="DSI-Technology" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#why">Why DSI</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#impact">Impact</a></li>
+      </ul>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div class="lang-toggle" id="lang-toggle">
+          <button data-lang="en" class="active">EN</button>
+          <button data-lang="ar">ع</button>
+        </div>
+        <a href="#cta" class="btn btn-primary" data-i18n="nav.cta">Get Started</a>
+        <div class="hamburger" id="hamburger">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── Hero ────────────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-bg-glow"></div>
+  <div class="hero-bg-glow2"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div>
+        <div class="hero-eyebrow">
+          <div class="dot"></div>
+          <span>Enterprise AI & Digital Transformation</span>
+        </div>
+        <h1 class="hero-title">
+          Where Data Meets<br /><span class="accent">Strategic Innovation</span>
+        </h1>
+        <p class="hero-desc">
+          DSI-Technology partners with large organizations to architect, deploy, and scale AI-driven transformation — turning complex data landscapes into measurable competitive advantage.
+        </p>
+        <div class="hero-cta">
+          <a href="#cta" class="btn btn-primary">
+            Start Your Transformation
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#services" class="btn btn-secondary">Explore Services</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat-item">
+            <div class="hero-stat-value">120<span>+</span></div>
+            <div class="hero-stat-label">Enterprise Clients</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-value">98<span>%</span></div>
+            <div class="hero-stat-label">Delivery Success Rate</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-value">3.8<span>×</span></div>
+            <div class="hero-stat-label">Avg. ROI Multiplier</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Visual -->
+      <div class="hero-visual">
+        <div class="float-card float-card-1">
+          <div class="float-label">AI Accuracy</div>
+          <div class="float-value">99.2%</div>
+          <div class="float-sub">↑ 4.1% this quarter</div>
+        </div>
+        <div class="dashboard-card">
+          <div class="dashboard-header">
+            <span class="dashboard-title">Transformation Dashboard</span>
+            <span class="status-badge"><span class="live-dot"></span>Live</span>
+          </div>
+          <div class="metrics-grid">
+            <div class="metric-item">
+              <div class="metric-label">Data Processed</div>
+              <div class="metric-value cyan">4.7TB</div>
+              <div class="metric-change">↑ 23%</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-label">API Uptime</div>
+              <div class="metric-value">99.9%</div>
+              <div class="metric-change">Stable</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-label">Models Active</div>
+              <div class="metric-value cyan">47</div>
+              <div class="metric-change">↑ 8 new</div>
+            </div>
+          </div>
+          <div class="chart-area">
+            <svg viewBox="0 0 432 100" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="area-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#00E5FF" stop-opacity="0.2"/>
+                  <stop offset="100%" stop-color="#00E5FF" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path d="M0 90 L40 72 L80 65 L120 55 L160 48 L200 38 L240 42 L280 30 L320 22 L360 18 L400 12 L432 8 L432 100 L0 100 Z" fill="url(#area-grad)"/>
+              <path d="M0 90 L40 72 L80 65 L120 55 L160 48 L200 38 L240 42 L280 30 L320 22 L360 18 L400 12 L432 8" fill="none" stroke="#00E5FF" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-icon" style="background:rgba(0,229,255,0.1);">🤖</div>
+              <div class="activity-text">AI model deployed to production</div>
+              <div class="activity-time">2m ago</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon" style="background:rgba(76,29,149,0.2);">☁️</div>
+              <div class="activity-text">Cloud migration phase 3 complete</div>
+              <div class="activity-time">18m ago</div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon" style="background:rgba(34,197,94,0.1);">✓</div>
+              <div class="activity-text">Compliance audit passed — 100%</div>
+              <div class="activity-time">1h ago</div>
+            </div>
+          </div>
+        </div>
+        <div class="float-card float-card-2">
+          <div class="float-label">Cost Reduction</div>
+          <div class="float-value">38%</div>
+          <div class="float-sub">Operational efficiency gain</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Client Trust Bar ─────────────────────────────────────────────── -->
+<section id="clients">
+  <div class="container">
+    <div class="clients-inner">
+      <span class="clients-label">Trusted By</span>
+      <div style="overflow:hidden; flex:1;">
+        <div style="display:flex;">
+          <div class="clients-track" id="marquee1">
+            <span class="client-logo">STC Group</span>
+            <span class="client-logo">Saudi Aramco</span>
+            <span class="client-logo">Mobily</span>
+            <span class="client-logo">SABIC</span>
+            <span class="client-logo">NEOM</span>
+            <span class="client-logo">Vision 2030</span>
+            <span class="client-logo">SDAIA</span>
+            <span class="client-logo">Zain KSA</span>
+            <span class="client-logo">STC Group</span>
+            <span class="client-logo">Saudi Aramco</span>
+            <span class="client-logo">Mobily</span>
+            <span class="client-logo">SABIC</span>
+            <span class="client-logo">NEOM</span>
+            <span class="client-logo">Vision 2030</span>
+            <span class="client-logo">SDAIA</span>
+            <span class="client-logo">Zain KSA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Services ─────────────────────────────────────────────────────── -->
+<section id="services">
+  <div class="container">
+    <div class="section-header">
+      <span class="tag">Our Services</span>
+      <h2 class="section-title">End-to-End Transformation,<br />Delivered with Precision</h2>
+      <p class="section-subtitle">From strategy to execution, DSI-Technology provides the full spectrum of capabilities your enterprise needs to lead in the AI era.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18"/></svg>
+        </div>
+        <h3>AI & Machine Learning Integration</h3>
+        <p>Deploy enterprise-grade AI models that integrate seamlessly with your existing infrastructure. From NLP pipelines to predictive analytics, we engineer solutions that deliver measurable outcomes.</p>
+        <a href="#cta" class="service-link">
+          Learn more
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+        </div>
+        <h3>Cloud Architecture & Migration</h3>
+        <p>Architect resilient, scalable cloud environments across AWS, Azure, and GCP. Our certified engineers handle zero-downtime migrations and ongoing infrastructure optimization at enterprise scale.</p>
+        <a href="#cta" class="service-link">
+          Learn more
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7c0-2-1-3-3-3H7C5 4 4 5 4 7z"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+        </div>
+        <h3>Data Strategy & Governance</h3>
+        <p>Transform raw data into strategic assets. We design data architectures, governance frameworks, and analytics platforms that comply with regulatory requirements while enabling real-time business intelligence.</p>
+        <a href="#cta" class="service-link">
+          Learn more
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Cybersecurity & Compliance</h3>
+        <p>Enterprise-grade security architecture built for zero-trust environments. We ensure your digital transformation meets the highest standards — NCA, ISO 27001, GDPR, and beyond.</p>
+        <a href="#cta" class="service-link">
+          Learn more
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <h3>Digital Operations & Automation</h3>
+        <p>Redesign operational workflows with intelligent automation. From RPA implementations to end-to-end process digitization, we accelerate throughput and eliminate operational bottlenecks at scale.</p>
+        <a href="#cta" class="service-link">
+          Learn more
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Transformation Advisory</h3>
+        <p>Strategic counsel from seasoned transformation leaders who have navigated large-scale organizational change. We align technology investments with business model innovation and long-term value creation.</p>
+        <a href="#cta" class="service-link">
+          Learn more
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── Why DSI ─────────────────────────────────────────────────────── -->
+<section id="why">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-visual">
+        <div class="why-card-stack">
+          <div class="w-card w-card-main">
+            <div class="w-card-header">
+              <span class="w-card-label">Transformation Readiness Score</span>
+              <div class="score-ring">
+                <svg viewBox="0 0 54 54">
+                  <circle cx="27" cy="27" r="22" fill="none" stroke="#E2E8F0" stroke-width="4"/>
+                  <circle cx="27" cy="27" r="22" fill="none" stroke="#00E5FF" stroke-width="4"
+                    stroke-dasharray="138.2" stroke-dashoffset="20.7" stroke-linecap="round"/>
+                </svg>
+                <div class="score-text">85</div>
+              </div>
+            </div>
+            <div class="progress-list">
+              <div class="progress-item">
+                <div class="progress-meta"><span>AI Readiness</span><span>92%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width:92%"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-meta"><span>Cloud Adoption</span><span>78%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width:78%"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-meta"><span>Data Governance</span><span>85%</span></div>
+                <div class="progress-bar"><div class="progress-fill violet" style="width:85%"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-meta"><span>Security Posture</span><span>96%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width:96%"></div></div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-meta"><span>Operational Agility</span><span>71%</span></div>
+                <div class="progress-bar"><div class="progress-fill violet" style="width:71%"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="w-card w-card-back">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div>
+                <div class="float-label" style="color:var(--color-text-muted)">Industry Benchmark</div>
+                <div style="font-family:var(--font-heading);font-size:24px;font-weight:700;color:var(--color-text-main);margin-top:4px;">Top 8%</div>
+                <div style="font-size:13px;color:var(--color-text-muted);margin-top:4px;">of enterprise organizations globally</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:12px;color:var(--color-text-muted);">Improvement YoY</div>
+                <div style="font-family:var(--font-heading);font-size:28px;font-weight:700;color:#22c55e;">+34%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <span class="tag">Why DSI-Technology</span>
+        <h2 class="section-title">Built for Enterprise-Scale Impact</h2>
+        <p class="section-subtitle" style="margin-bottom:36px;">We don't deliver generic technology. We deliver precision-engineered transformations calibrated to your strategic objectives, your constraints, and your timeline.</p>
+
+        <div class="why-features">
+          <div class="why-feature">
+            <div class="why-feature-icon">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4"/><path d="M7 3H5a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2h-2"/><rect x="7" y="1" width="6" height="4" rx="1"/></svg>
+            </div>
+            <div>
+              <h4>Outcome-Driven Delivery</h4>
+              <p>Every engagement is structured around defined KPIs — not activities. We measure success in business value: cost reduction, revenue uplift, and competitive positioning.</p>
+            </div>
+          </div>
+          <div class="why-feature">
+            <div class="why-feature-icon">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2z"/><path d="M10 6v4l3 3"/></svg>
+            </div>
+            <div>
+              <h4>Accelerated Time-to-Value</h4>
+              <p>Our proprietary delivery frameworks compress implementation timelines by up to 40%, enabling faster realization of transformation benefits without sacrificing quality.</p>
+            </div>
+          </div>
+          <div class="why-feature">
+            <div class="why-feature-icon">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 20H3a2 2 0 01-2-2V4a2 2 0 012-2h10l6 6v10a2 2 0 01-2 2z"/><path d="M13 2v6h6"/><path d="M9 13h6M9 10h6"/></svg>
+            </div>
+            <div>
+              <h4>Regulatory & Compliance Expertise</h4>
+              <p>Deep knowledge of government and enterprise compliance frameworks ensures your transformation is built on a foundation that satisfies legal, security, and governance requirements.</p>
+            </div>
+          </div>
+          <div class="why-feature">
+            <div class="why-feature-icon">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5h16M4 10h16M4 15h8"/></svg>
+            </div>
+            <div>
+              <h4>Transparent Governance Model</h4>
+              <p>Real-time dashboards, structured steering cadences, and clear escalation paths mean you always have full visibility and control over progress, risk, and decisions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Process ───────────────────────────────────────────────────────── -->
+<section id="process">
+  <div class="container">
+    <div class="section-header centered">
+      <span class="tag">How We Work</span>
+      <h2 class="section-title">A Disciplined Path to Transformation</h2>
+      <p class="section-subtitle">Four phases. Clear ownership. Measurable checkpoints at every stage — from diagnosis to scaled adoption.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <h4>Diagnose & Strategize</h4>
+        <p>Deep-dive assessment of your current state — technology, data, operations, and culture — to define the transformation blueprint aligned to business objectives.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <h4>Architect & Design</h4>
+        <p>Solution architecture, data models, and integration blueprints designed for your specific environment, with full traceability to strategic goals and compliance requirements.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <h4>Build & Integrate</h4>
+        <p>Agile delivery squads execute in sprint cycles with clear milestones. Continuous integration into your live environment minimizes disruption and accelerates learning.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <h4>Scale & Optimize</h4>
+        <p>Post-launch optimization cycles, capability transfer to internal teams, and performance monitoring ensure sustained value long after the initial delivery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Impact Numbers ────────────────────────────────────────────────── -->
+<section id="impact">
+  <div class="container">
+    <div class="impact-header section-header centered">
+      <span class="tag">By The Numbers</span>
+      <h2 class="section-title">Performance That Speaks for Itself</h2>
+      <p class="section-subtitle">Measurable outcomes across every engagement, sector, and scale of transformation.</p>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-item">
+        <div class="impact-number">120<sup>+</sup></div>
+        <div class="impact-desc">Enterprise & public-sector clients served across 14 countries</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-number">$2.4B</div>
+        <div class="impact-desc">In client cost savings and efficiency gains delivered to date</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-number">98%</div>
+        <div class="impact-desc">On-time, on-scope delivery rate across all active engagements</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-number">3.8×</div>
+        <div class="impact-desc">Average return on transformation investment within 24 months</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Testimonials ──────────────────────────────────────────────────── -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-header centered">
+      <span class="tag">Client Perspectives</span>
+      <h2 class="section-title">What Our Clients Say</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">DSI-Technology didn't just deliver a technology upgrade — they fundamentally changed how we think about data as a strategic asset. The AI models they deployed have transformed our forecasting accuracy from 68% to over 94%.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">KA</div>
+          <div>
+            <div class="author-name">Khalid Al-Rashidi</div>
+            <div class="author-role">Chief Digital Officer, Telecom Enterprise Group</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">Their governance model is unlike anything I've seen from a technology partner. Full visibility, structured escalation, and a team that genuinely understands the political and regulatory constraints of the public sector.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">NM</div>
+          <div>
+            <div class="author-name">Nora Al-Mutairi</div>
+            <div class="author-role">VP Technology Transformation, Government Authority</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">In 18 months, DSI helped us migrate 340 legacy systems to cloud, cut operational costs by 41%, and launch three new digital revenue streams. The ROI case practically wrote itself.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">FM</div>
+          <div>
+            <div class="author-name">Faisal Al-Mansour</div>
+            <div class="author-role">Group CTO, Regional Financial Services</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ───────────────────────────────────────────────────────────── -->
+<section id="cta">
+  <div class="container">
+    <div class="cta-box">
+      <div class="cta-box-glow"></div>
+      <span class="tag">Get Started</span>
+      <h2 class="section-title">Ready to Lead Your Industry's<br />Transformation?</h2>
+      <p class="section-subtitle">Let's discuss your organization's strategic objectives and design a transformation roadmap built for measurable, lasting impact.</p>
+      <div class="cta-actions">
+        <a target="_top" href="mailto:hello@dsi-technology.com" class="btn btn-primary">
+          Schedule a Strategic Briefing
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a target="_top" href="tel:+966000000000" class="btn btn-secondary">Talk to an Expert</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ────────────────────────────────────────────────────────── -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" style="margin-bottom:0;">
+          <img src="logo-dark.png" alt="DSI-Technology" />
+        </a>
+        <p>Data, Science, and Innovation. We architect the digital future for organizations that refuse to stand still.</p>
+      </div>
+      <div>
+        <p class="footer-heading">Services</p>
+        <ul class="footer-links">
+          <li><a href="#services">AI & ML Integration</a></li>
+          <li><a href="#services">Cloud Architecture</a></li>
+          <li><a href="#services">Data Strategy</a></li>
+          <li><a href="#services">Cybersecurity</a></li>
+          <li><a href="#services">Automation</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-heading">Company</p>
+        <ul class="footer-links">
+          <li><a href="#why">About DSI</a></li>
+          <li><a href="#process">Our Process</a></li>
+          <li><a href="#impact">Impact</a></li>
+          <li><a href="#testimonials">Clients</a></li>
+          <li><a href="#cta">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-heading">Contact</p>
+        <ul class="footer-links">
+          <li><a target="_top" href="mailto:hello@dsi-technology.com">hello@dsi-technology.com</a></li>
+          <li><a target="_top" href="tel:+966000000000">+966 (0) 00 000 0000</a></li>
+          <li><a href="#">Riyadh, Saudi Arabia</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Twitter / X</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 DSI-Technology. All rights reserved.</p>
+      <p>Privacy Policy · Terms of Service · Cookie Policy</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── Scripts ───────────────────────────────────────────────────────── -->
+<script>
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Robust anchor scrolling — works inside preview iframes and accounts for fixed nav
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href || href === '#' || href.length < 2) return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      const navH = navbar ? navbar.offsetHeight : 68;
+      const top = target.getBoundingClientRect().top + window.pageYOffset - navH - 8;
+      window.scrollTo({ top, behavior: 'smooth' });
+      // Close mobile menu if open
+      const links = document.querySelector('.nav-links');
+      if (links && window.innerWidth <= 768) links.style.cssText = '';
+    });
+  });
+
+  // Hamburger (mobile)
+  const hamburger = document.getElementById('hamburger');
+  hamburger.addEventListener('click', () => {
+    const links = document.querySelector('.nav-links');
+    const open = links.style.display === 'flex';
+    links.style.cssText = open
+      ? ''
+      : 'display:flex;flex-direction:column;position:absolute;top:68px;left:0;right:0;background:var(--color-text-main);padding:16px 24px 24px;gap:4px;border-top:1px solid rgba(255,255,255,0.08);';
+  });
+
+  // Scroll-triggered counter animation
+  const counters = document.querySelectorAll('.impact-number');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const text = el.textContent;
+        // Simple fade-in for complex values
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        requestAnimationFrame(() => {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        });
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.3 });
+  counters.forEach(c => observer.observe(c));
+
+  // Smooth reveal on scroll
+  const reveals = document.querySelectorAll('.service-card, .testimonial-card, .process-step, .why-feature');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }, 80 * (entry.target.dataset.index || 0));
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach((el, i) => {
+    el.dataset.index = i % 3;
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = `opacity 0.5s ease, transform 0.5s ease, box-shadow 0.25s ease, border-color 0.25s ease`;
+    revealObserver.observe(el);
+  });
+
+  /* ─── i18n: English ↔ Arabic ──────────────────────────────────────── */
+  const translations = {
+    en: {
+      // Nav
+      'nav .nav-links li:nth-child(1) a': 'Services',
+      'nav .nav-links li:nth-child(2) a': 'Why DSI',
+      'nav .nav-links li:nth-child(3) a': 'Process',
+      'nav .nav-links li:nth-child(4) a': 'Impact',
+      'nav [data-i18n="nav.cta"]': 'Get Started →',
+
+      // Hero
+      '.hero-eyebrow span': 'Enterprise AI & Digital Transformation',
+      '.hero-title': 'Where Data Meets<br /><span class="accent">Strategic Innovation</span>',
+      '.hero-desc': 'DSI-Technology partners with large organizations to architect, deploy, and scale AI-driven transformation — turning complex data landscapes into measurable competitive advantage.',
+      '.hero-cta .btn-primary': 'Start Your Transformation →',
+      '.hero-cta .btn-secondary': 'Explore Services',
+      '.hero-stats .hero-stat-item:nth-child(1) .hero-stat-label': 'Enterprise Clients',
+      '.hero-stats .hero-stat-item:nth-child(2) .hero-stat-label': 'Delivery Success Rate',
+      '.hero-stats .hero-stat-item:nth-child(3) .hero-stat-label': 'Avg. ROI Multiplier',
+
+      // Dashboard widget
+      '.dashboard-title': 'Transformation Dashboard',
+      '.status-badge': '● Live',
+      '.metrics-grid .metric-item:nth-child(1) .metric-label': 'Data Processed',
+      '.metrics-grid .metric-item:nth-child(1) .metric-change': '↑ 23%',
+      '.metrics-grid .metric-item:nth-child(2) .metric-label': 'API Uptime',
+      '.metrics-grid .metric-item:nth-child(2) .metric-change': 'Stable',
+      '.metrics-grid .metric-item:nth-child(3) .metric-label': 'Models Active',
+      '.metrics-grid .metric-item:nth-child(3) .metric-change': '↑ 8 new',
+      '.activity-list .activity-item:nth-child(1) .activity-text': 'AI model deployed to production',
+      '.activity-list .activity-item:nth-child(1) .activity-time': '2m ago',
+      '.activity-list .activity-item:nth-child(2) .activity-text': 'Cloud migration phase 3 complete',
+      '.activity-list .activity-item:nth-child(2) .activity-time': '18m ago',
+      '.activity-list .activity-item:nth-child(3) .activity-text': 'Compliance audit passed — 100%',
+      '.activity-list .activity-item:nth-child(3) .activity-time': '1h ago',
+      '.float-card-1 .float-label': 'AI Accuracy',
+      '.float-card-1 .float-sub': '↑ 4.1% this quarter',
+      '.float-card-2 .float-label': 'Cost Reduction',
+      '.float-card-2 .float-sub': 'Operational efficiency gain',
+
+      // Clients
+      '.clients-label': 'Trusted By',
+
+      // Services
+      '#services .tag': 'Our Services',
+      '#services .section-title': 'End-to-End Transformation,<br />Delivered with Precision',
+      '#services .section-subtitle': 'From strategy to execution, DSI-Technology provides the full spectrum of capabilities your enterprise needs to lead in the AI era.',
+      '.services-grid .service-card:nth-child(1) h3': 'AI & Machine Learning Integration',
+      '.services-grid .service-card:nth-child(1) p': 'Deploy enterprise-grade AI models that integrate seamlessly with your existing infrastructure. From NLP pipelines to predictive analytics, we engineer solutions that deliver measurable outcomes.',
+      '.services-grid .service-card:nth-child(2) h3': 'Cloud Architecture & Migration',
+      '.services-grid .service-card:nth-child(2) p': 'Architect resilient, scalable cloud environments across AWS, Azure, and GCP. Our certified engineers handle zero-downtime migrations and ongoing infrastructure optimization at enterprise scale.',
+      '.services-grid .service-card:nth-child(3) h3': 'Data Strategy & Governance',
+      '.services-grid .service-card:nth-child(3) p': 'Transform raw data into strategic assets. We design data architectures, governance frameworks, and analytics platforms that comply with regulatory requirements while enabling real-time business intelligence.',
+      '.services-grid .service-card:nth-child(4) h3': 'Cybersecurity & Compliance',
+      '.services-grid .service-card:nth-child(4) p': 'Enterprise-grade security architecture built for zero-trust environments. We ensure your digital transformation meets the highest standards — NCA, ISO 27001, GDPR, and beyond.',
+      '.services-grid .service-card:nth-child(5) h3': 'Digital Operations & Automation',
+      '.services-grid .service-card:nth-child(5) p': 'Redesign operational workflows with intelligent automation. From RPA implementations to end-to-end process digitization, we accelerate throughput and eliminate operational bottlenecks at scale.',
+      '.services-grid .service-card:nth-child(6) h3': 'Transformation Advisory',
+      '.services-grid .service-card:nth-child(6) p': 'Strategic counsel from seasoned transformation leaders who have navigated large-scale organizational change. We align technology investments with business model innovation and long-term value creation.',
+      '__service-links__': 'Learn more →',
+
+      // Why DSI
+      '.w-card-main .w-card-label': 'Transformation Readiness Score',
+      '.progress-list .progress-item:nth-child(1) .progress-meta span:first-child': 'AI Readiness',
+      '.progress-list .progress-item:nth-child(2) .progress-meta span:first-child': 'Cloud Adoption',
+      '.progress-list .progress-item:nth-child(3) .progress-meta span:first-child': 'Data Governance',
+      '.progress-list .progress-item:nth-child(4) .progress-meta span:first-child': 'Security Posture',
+      '.progress-list .progress-item:nth-child(5) .progress-meta span:first-child': 'Operational Agility',
+      '.w-card-back .float-label': 'Industry Benchmark',
+      '__w-card-back-main__': 'Top 8%',
+      '__w-card-back-sub__': 'of enterprise organizations globally',
+      '__w-card-back-yoy-label__': 'Improvement YoY',
+      '#why .tag': 'Why DSI-Technology',
+      '#why .section-title': 'Built for Enterprise-Scale Impact',
+      '#why .section-subtitle': "We don't deliver generic technology. We deliver precision-engineered transformations calibrated to your strategic objectives, your constraints, and your timeline.",
+      '.why-features .why-feature:nth-child(1) h4': 'Outcome-Driven Delivery',
+      '.why-features .why-feature:nth-child(1) p': 'Every engagement is structured around defined KPIs — not activities. We measure success in business value: cost reduction, revenue uplift, and competitive positioning.',
+      '.why-features .why-feature:nth-child(2) h4': 'Accelerated Time-to-Value',
+      '.why-features .why-feature:nth-child(2) p': 'Our proprietary delivery frameworks compress implementation timelines by up to 40%, enabling faster realization of transformation benefits without sacrificing quality.',
+      '.why-features .why-feature:nth-child(3) h4': 'Regulatory & Compliance Expertise',
+      '.why-features .why-feature:nth-child(3) p': 'Deep knowledge of government and enterprise compliance frameworks ensures your transformation is built on a foundation that satisfies legal, security, and governance requirements.',
+      '.why-features .why-feature:nth-child(4) h4': 'Transparent Governance Model',
+      '.why-features .why-feature:nth-child(4) p': 'Real-time dashboards, structured steering cadences, and clear escalation paths mean you always have full visibility and control over progress, risk, and decisions.',
+
+      // Process
+      '#process .tag': 'How We Work',
+      '#process .section-title': 'A Disciplined Path to Transformation',
+      '#process .section-subtitle': 'Four phases. Clear ownership. Measurable checkpoints at every stage — from diagnosis to scaled adoption.',
+      '.process-steps .process-step:nth-child(1) h4': 'Diagnose & Strategize',
+      '.process-steps .process-step:nth-child(1) p': 'Deep-dive assessment of your current state — technology, data, operations, and culture — to define the transformation blueprint aligned to business objectives.',
+      '.process-steps .process-step:nth-child(2) h4': 'Architect & Design',
+      '.process-steps .process-step:nth-child(2) p': 'Solution architecture, data models, and integration blueprints designed for your specific environment, with full traceability to strategic goals and compliance requirements.',
+      '.process-steps .process-step:nth-child(3) h4': 'Build & Integrate',
+      '.process-steps .process-step:nth-child(3) p': 'Agile delivery squads execute in sprint cycles with clear milestones. Continuous integration into your live environment minimizes disruption and accelerates learning.',
+      '.process-steps .process-step:nth-child(4) h4': 'Scale & Optimize',
+      '.process-steps .process-step:nth-child(4) p': 'Post-launch optimization cycles, capability transfer to internal teams, and performance monitoring ensure sustained value long after the initial delivery.',
+
+      // Impact
+      '#impact .tag': 'By The Numbers',
+      '#impact .section-title': 'Performance That Speaks for Itself',
+      '#impact .section-subtitle': 'Measurable outcomes across every engagement, sector, and scale of transformation.',
+      '.impact-grid .impact-item:nth-child(1) .impact-desc': 'Enterprise & public-sector clients served across 14 countries',
+      '.impact-grid .impact-item:nth-child(2) .impact-desc': 'In client cost savings and efficiency gains delivered to date',
+      '.impact-grid .impact-item:nth-child(3) .impact-desc': 'On-time, on-scope delivery rate across all active engagements',
+      '.impact-grid .impact-item:nth-child(4) .impact-desc': 'Average return on transformation investment within 24 months',
+
+      // Testimonials
+      '#testimonials .tag': 'Client Perspectives',
+      '#testimonials .section-title': 'What Our Clients Say',
+      '.testimonials-grid .testimonial-card:nth-child(1) .testimonial-text': "DSI-Technology didn't just deliver a technology upgrade — they fundamentally changed how we think about data as a strategic asset. The AI models they deployed have transformed our forecasting accuracy from 68% to over 94%.",
+      '.testimonials-grid .testimonial-card:nth-child(1) .author-name': 'Khalid Al-Rashidi',
+      '.testimonials-grid .testimonial-card:nth-child(1) .author-role': 'Chief Digital Officer, Telecom Enterprise Group',
+      '.testimonials-grid .testimonial-card:nth-child(2) .testimonial-text': "Their governance model is unlike anything I've seen from a technology partner. Full visibility, structured escalation, and a team that genuinely understands the political and regulatory constraints of the public sector.",
+      '.testimonials-grid .testimonial-card:nth-child(2) .author-name': 'Nora Al-Mutairi',
+      '.testimonials-grid .testimonial-card:nth-child(2) .author-role': 'VP Technology Transformation, Government Authority',
+      '.testimonials-grid .testimonial-card:nth-child(3) .testimonial-text': 'In 18 months, DSI helped us migrate 340 legacy systems to cloud, cut operational costs by 41%, and launch three new digital revenue streams. The ROI case practically wrote itself.',
+      '.testimonials-grid .testimonial-card:nth-child(3) .author-name': 'Faisal Al-Mansour',
+      '.testimonials-grid .testimonial-card:nth-child(3) .author-role': 'Group CTO, Regional Financial Services',
+
+      // CTA
+      '#cta .tag': 'Get Started',
+      '#cta .section-title': "Ready to Lead Your Industry's<br />Transformation?",
+      '#cta .section-subtitle': "Let's discuss your organization's strategic objectives and design a transformation roadmap built for measurable, lasting impact.",
+      '.cta-actions .btn-primary': 'Schedule a Strategic Briefing →',
+      '.cta-actions .btn-secondary': 'Talk to an Expert',
+
+      // Footer
+      '.footer-brand p': 'Data, Science, and Innovation. We architect the digital future for organizations that refuse to stand still.',
+      '.footer-grid > div:nth-child(2) .footer-heading': 'Services',
+      '.footer-grid > div:nth-child(2) .footer-links li:nth-child(1) a': 'AI & ML Integration',
+      '.footer-grid > div:nth-child(2) .footer-links li:nth-child(2) a': 'Cloud Architecture',
+      '.footer-grid > div:nth-child(2) .footer-links li:nth-child(3) a': 'Data Strategy',
+      '.footer-grid > div:nth-child(2) .footer-links li:nth-child(4) a': 'Cybersecurity',
+      '.footer-grid > div:nth-child(2) .footer-links li:nth-child(5) a': 'Automation',
+      '.footer-grid > div:nth-child(3) .footer-heading': 'Company',
+      '.footer-grid > div:nth-child(3) .footer-links li:nth-child(1) a': 'About DSI',
+      '.footer-grid > div:nth-child(3) .footer-links li:nth-child(2) a': 'Our Process',
+      '.footer-grid > div:nth-child(3) .footer-links li:nth-child(3) a': 'Impact',
+      '.footer-grid > div:nth-child(3) .footer-links li:nth-child(4) a': 'Clients',
+      '.footer-grid > div:nth-child(3) .footer-links li:nth-child(5) a': 'Careers',
+      '.footer-grid > div:nth-child(4) .footer-heading': 'Contact',
+      '.footer-grid > div:nth-child(4) .footer-links li:nth-child(3) a': 'Riyadh, Saudi Arabia',
+      '.footer-grid > div:nth-child(4) .footer-links li:nth-child(4) a': 'LinkedIn',
+      '.footer-grid > div:nth-child(4) .footer-links li:nth-child(5) a': 'Twitter / X',
+      '.footer-bottom p:first-child': '© 2026 DSI-Technology. All rights reserved.',
+      '.footer-bottom p:last-child': 'Privacy Policy · Terms of Service · Cookie Policy',
+    },
+    ar: {
+      // Nav
+      'nav .nav-links li:nth-child(1) a': 'الخدمات',
+      'nav .nav-links li:nth-child(2) a': 'لماذا DSI',
+      'nav .nav-links li:nth-child(3) a': 'منهجيتنا',
+      'nav .nav-links li:nth-child(4) a': 'الأثر',
+      'nav [data-i18n="nav.cta"]': '← ابدأ الآن',
+
+      // Hero
+      '.hero-eyebrow span': 'الذكاء الاصطناعي والتحول الرقمي للمؤسسات',
+      '.hero-title': 'حيث تلتقي البيانات<br /><span class="accent">بالابتكار الاستراتيجي</span>',
+      '.hero-desc': 'تشاركك DSI-Technology بصفتها شريكاً للمؤسسات الكبرى في تصميم وتنفيذ وتوسيع التحولات المدفوعة بالذكاء الاصطناعي — لتحويل تعقيدات البيانات إلى ميزة تنافسية قابلة للقياس.',
+      '.hero-cta .btn-primary': '← ابدأ رحلة التحول',
+      '.hero-cta .btn-secondary': 'استعرض الخدمات',
+      '.hero-stats .hero-stat-item:nth-child(1) .hero-stat-label': 'عميل مؤسسي',
+      '.hero-stats .hero-stat-item:nth-child(2) .hero-stat-label': 'معدل نجاح التسليم',
+      '.hero-stats .hero-stat-item:nth-child(3) .hero-stat-label': 'متوسط مضاعف العائد',
+
+      // Dashboard widget
+      '.dashboard-title': 'لوحة التحول',
+      '.status-badge': '● مباشر',
+      '.metrics-grid .metric-item:nth-child(1) .metric-label': 'البيانات المعالجة',
+      '.metrics-grid .metric-item:nth-child(1) .metric-change': '↑ ٢٣٪',
+      '.metrics-grid .metric-item:nth-child(2) .metric-label': 'جاهزية الخدمة',
+      '.metrics-grid .metric-item:nth-child(2) .metric-change': 'مستقر',
+      '.metrics-grid .metric-item:nth-child(3) .metric-label': 'النماذج النشطة',
+      '.metrics-grid .metric-item:nth-child(3) .metric-change': '↑ ٨ جديدة',
+      '.activity-list .activity-item:nth-child(1) .activity-text': 'نموذج ذكاء اصطناعي قيد التشغيل',
+      '.activity-list .activity-item:nth-child(1) .activity-time': 'منذ ٢ د',
+      '.activity-list .activity-item:nth-child(2) .activity-text': 'اكتمال المرحلة الثالثة من الترحيل السحابي',
+      '.activity-list .activity-item:nth-child(2) .activity-time': 'منذ ١٨ د',
+      '.activity-list .activity-item:nth-child(3) .activity-text': 'اجتياز التدقيق التنظيمي — ١٠٠٪',
+      '.activity-list .activity-item:nth-child(3) .activity-time': 'منذ ساعة',
+      '.float-card-1 .float-label': 'دقة الذكاء الاصطناعي',
+      '.float-card-1 .float-sub': '↑ ٤٫١٪ هذا الربع',
+      '.float-card-2 .float-label': 'خفض التكاليف',
+      '.float-card-2 .float-sub': 'مكاسب الكفاءة التشغيلية',
+
+      // Clients
+      '.clients-label': 'يثقون بنا',
+
+      // Services
+      '#services .tag': 'خدماتنا',
+      '#services .section-title': 'تحول شامل،<br />يُنفَّذ بدقة هندسية',
+      '#services .section-subtitle': 'من الاستراتيجية إلى التنفيذ، توفر DSI-Technology الطيف الكامل من القدرات التي تحتاجها مؤسستك للريادة في عصر الذكاء الاصطناعي.',
+      '.services-grid .service-card:nth-child(1) h3': 'دمج الذكاء الاصطناعي وتعلم الآلة',
+      '.services-grid .service-card:nth-child(1) p': 'نشر نماذج ذكاء اصطناعي بمستوى المؤسسات تتكامل بسلاسة مع بنيتك التحتية القائمة. من معالجة اللغة الطبيعية إلى التحليلات التنبؤية، نهندس حلولاً تحقق نتائج قابلة للقياس.',
+      '.services-grid .service-card:nth-child(2) h3': 'الهندسة السحابية والترحيل',
+      '.services-grid .service-card:nth-child(2) p': 'تصميم بيئات سحابية مرنة وقابلة للتوسع عبر AWS وAzure وGCP. مهندسونا المعتمدون يديرون عمليات الترحيل دون انقطاع وتحسين البنية التحتية بمستوى المؤسسات.',
+      '.services-grid .service-card:nth-child(3) h3': 'استراتيجية وحوكمة البيانات',
+      '.services-grid .service-card:nth-child(3) p': 'تحويل البيانات الخام إلى أصول استراتيجية. نصمم هياكل البيانات وأطر الحوكمة ومنصات التحليلات بما يتوافق مع المتطلبات التنظيمية ويُمكِّن من الذكاء التشغيلي الفوري.',
+      '.services-grid .service-card:nth-child(4) h3': 'الأمن السيبراني والامتثال',
+      '.services-grid .service-card:nth-child(4) p': 'هندسة أمنية بمستوى المؤسسات مبنية على مفهوم انعدام الثقة. نضمن توافق تحولك الرقمي مع أعلى المعايير — NCA، ISO 27001، GDPR وما بعدها.',
+      '.services-grid .service-card:nth-child(5) h3': 'الأتمتة والعمليات الرقمية',
+      '.services-grid .service-card:nth-child(5) p': 'إعادة تصميم سير العمل بأتمتة ذكية. من تطبيقات الـRPA إلى الرقمنة الشاملة للعمليات، نسرّع الإنتاجية ونزيل الاختناقات التشغيلية بمستوى المؤسسات.',
+      '.services-grid .service-card:nth-child(6) h3': 'الاستشارات التحويلية',
+      '.services-grid .service-card:nth-child(6) p': 'مشورة استراتيجية من قادة تحول ذوي خبرة عميقة في إدارة التغيير التنظيمي واسع النطاق. نواءم استثمارات التقنية مع ابتكار نموذج الأعمال وخلق القيمة المستدامة.',
+      '__service-links__': '← اعرف المزيد',
+
+      // Why DSI
+      '.w-card-main .w-card-label': 'مؤشر جاهزية التحول',
+      '.progress-list .progress-item:nth-child(1) .progress-meta span:first-child': 'جاهزية الذكاء الاصطناعي',
+      '.progress-list .progress-item:nth-child(2) .progress-meta span:first-child': 'تبني السحابة',
+      '.progress-list .progress-item:nth-child(3) .progress-meta span:first-child': 'حوكمة البيانات',
+      '.progress-list .progress-item:nth-child(4) .progress-meta span:first-child': 'الوضع الأمني',
+      '.progress-list .progress-item:nth-child(5) .progress-meta span:first-child': 'المرونة التشغيلية',
+      '.w-card-back .float-label': 'المقارنة المعيارية',
+      '__w-card-back-main__': 'ضمن أعلى ٨٪',
+      '__w-card-back-sub__': 'من المؤسسات الكبرى عالمياً',
+      '__w-card-back-yoy-label__': 'التحسن السنوي',
+      '#why .tag': 'لماذا DSI-Technology',
+      '#why .section-title': 'مبنية لإحداث أثر على مستوى المؤسسات',
+      '#why .section-subtitle': 'لا نقدم تقنية عامة. نقدم تحولات هندسية دقيقة مُعايَرة لأهدافك الاستراتيجية وقيودك وجدولك الزمني.',
+      '.why-features .why-feature:nth-child(1) h4': 'تسليم يقوده الأثر',
+      '.why-features .why-feature:nth-child(1) p': 'كل ارتباط مهني مبني حول مؤشرات أداء واضحة — لا حول الأنشطة. نقيس النجاح بالقيمة التجارية: خفض التكلفة، زيادة الإيرادات، وتعزيز الموقع التنافسي.',
+      '.why-features .why-feature:nth-child(2) h4': 'تسريع الوصول إلى القيمة',
+      '.why-features .why-feature:nth-child(2) p': 'تقلّص أطر التسليم الخاصة بنا الجداول الزمنية للتنفيذ بنسبة تصل إلى ٤٠٪، مما يتيح تحقيق فوائد التحول بصورة أسرع دون التضحية بالجودة.',
+      '.why-features .why-feature:nth-child(3) h4': 'خبرة تنظيمية وامتثال',
+      '.why-features .why-feature:nth-child(3) p': 'معرفة عميقة بأطر الامتثال الحكومية والمؤسسية تضمن أن تحولك مبني على أساس يلبي المتطلبات القانونية والأمنية والحوكمية.',
+      '.why-features .why-feature:nth-child(4) h4': 'نموذج حوكمة شفاف',
+      '.why-features .why-feature:nth-child(4) p': 'لوحات معلومات لحظية، إيقاعات توجيه منظمة، ومسارات تصعيد واضحة تعني أنك تملك دائماً رؤية كاملة وتحكماً تاماً في التقدم والمخاطر والقرارات.',
+
+      // Process
+      '#process .tag': 'كيف نعمل',
+      '#process .section-title': 'مسار منضبط نحو التحول',
+      '#process .section-subtitle': 'أربع مراحل. ملكية واضحة. نقاط مراجعة قابلة للقياس في كل مرحلة — من التشخيص إلى التبني الموسع.',
+      '.process-steps .process-step:nth-child(1) h4': 'التشخيص ووضع الاستراتيجية',
+      '.process-steps .process-step:nth-child(1) p': 'تقييم متعمق للوضع الراهن — التقنية، البيانات، العمليات، الثقافة — لتحديد مخطط التحول المتوائم مع الأهداف التجارية.',
+      '.process-steps .process-step:nth-child(2) h4': 'الهندسة والتصميم',
+      '.process-steps .process-step:nth-child(2) p': 'هندسة الحلول، نماذج البيانات، ومخططات التكامل مصممة لبيئتك تحديداً، مع تتبع كامل للأهداف الاستراتيجية ومتطلبات الامتثال.',
+      '.process-steps .process-step:nth-child(3) h4': 'البناء والتكامل',
+      '.process-steps .process-step:nth-child(3) p': 'فرق تسليم مرنة تنفّذ في دورات قصيرة ذات مراحل واضحة. التكامل المستمر مع بيئتك الحية يقلل الاضطراب ويُسرّع التعلم.',
+      '.process-steps .process-step:nth-child(4) h4': 'التوسع والتحسين',
+      '.process-steps .process-step:nth-child(4) p': 'دورات تحسين ما بعد الإطلاق، نقل القدرات إلى الفرق الداخلية، ومراقبة الأداء تضمن قيمة مستدامة بعد التسليم الأولي.',
+
+      // Impact
+      '#impact .tag': 'بالأرقام',
+      '#impact .section-title': 'أداء يتحدث عن نفسه',
+      '#impact .section-subtitle': 'نتائج قابلة للقياس عبر كل ارتباط وقطاع ومستوى تحول.',
+      '.impact-grid .impact-item:nth-child(1) .impact-desc': 'عميل مؤسسي وحكومي في ١٤ دولة',
+      '.impact-grid .impact-item:nth-child(2) .impact-desc': 'وفورات وكفاءات حققناها لعملائنا حتى اليوم',
+      '.impact-grid .impact-item:nth-child(3) .impact-desc': 'تسليم في الموعد ووفق النطاق عبر جميع المشاريع النشطة',
+      '.impact-grid .impact-item:nth-child(4) .impact-desc': 'متوسط العائد على الاستثمار في التحول خلال ٢٤ شهراً',
+
+      // Testimonials
+      '#testimonials .tag': 'آراء عملائنا',
+      '#testimonials .section-title': 'ماذا يقول عملاؤنا',
+      '.testimonials-grid .testimonial-card:nth-child(1) .testimonial-text': 'لم تقدم DSI-Technology مجرد ترقية تقنية — بل غيّرت جذرياً طريقة تفكيرنا في البيانات كأصل استراتيجي. نماذج الذكاء الاصطناعي التي نشرتها رفعت دقة توقعاتنا من ٦٨٪ إلى ما يزيد على ٩٤٪.',
+      '.testimonials-grid .testimonial-card:nth-child(1) .author-name': 'خالد الرشيدي',
+      '.testimonials-grid .testimonial-card:nth-child(1) .author-role': 'الرئيس الرقمي، مجموعة اتصالات مؤسسية',
+      '.testimonials-grid .testimonial-card:nth-child(2) .testimonial-text': 'نموذج الحوكمة لديهم لا يشبه أي شريك تقني تعاملت معه. شفافية كاملة، تصعيد منظم، وفريق يفهم حقاً القيود التنظيمية والسياسية في القطاع الحكومي.',
+      '.testimonials-grid .testimonial-card:nth-child(2) .author-name': 'نورة المطيري',
+      '.testimonials-grid .testimonial-card:nth-child(2) .author-role': 'نائب الرئيس للتحول التقني، جهة حكومية',
+      '.testimonials-grid .testimonial-card:nth-child(3) .testimonial-text': 'خلال ١٨ شهراً، ساعدتنا DSI في ترحيل ٣٤٠ نظاماً قديماً إلى السحابة، وخفض التكاليف التشغيلية ٤١٪، وإطلاق ثلاث قنوات إيرادات رقمية جديدة. حالة العائد على الاستثمار كتبت نفسها بنفسها.',
+      '.testimonials-grid .testimonial-card:nth-child(3) .author-name': 'فيصل المنصور',
+      '.testimonials-grid .testimonial-card:nth-child(3) .author-role': 'الرئيس التقني للمجموعة، خدمات مالية إقليمية',
+
+      // CTA
+      '#cta .tag': 'ابدأ الآن',
+      '#cta .section-title': 'هل أنت مستعد لقيادة<br />تحول قطاعك؟',
+      '#cta .section-subtitle': 'دعنا نناقش أهداف مؤسستك الاستراتيجية ونصمم خارطة طريق تحوّل مبنية على أثر قابل للقياس ومستدام.',
+      '.cta-actions .btn-primary': '← احجز جلسة استراتيجية',
+      '.cta-actions .btn-secondary': 'تحدث إلى خبير',
+
+      // Footer
+      '.footer-brand p': 'البيانات، العلوم، والابتكار. نهندس المستقبل الرقمي للمؤسسات التي ترفض الجمود.',
+      '.footer-grid > div:nth-child(2) .footer-heading': 'الخدمات',
+      '.footer-grid > div:nth-child(2) .footer-links li:nth-child(1) a': 'الذكاء الاصطناعي وتعلم الآلة',
+      '.footer-grid > div:nth-child(2) .footer-links li:nth-child(2) a': 'الهندسة السحابية',
+      '.footer-grid > div:nth-child(2) .footer-links li:nth-child(3) a': 'استراتيجية البيانات',
+      '.footer-grid > div:nth-child(2) .footer-links li:nth-child(4) a': 'الأمن السيبراني',
+      '.footer-grid > div:nth-child(2) .footer-links li:nth-child(5) a': 'الأتمتة',
+      '.footer-grid > div:nth-child(3) .footer-heading': 'الشركة',
+      '.footer-grid > div:nth-child(3) .footer-links li:nth-child(1) a': 'عن DSI',
+      '.footer-grid > div:nth-child(3) .footer-links li:nth-child(2) a': 'منهجيتنا',
+      '.footer-grid > div:nth-child(3) .footer-links li:nth-child(3) a': 'الأثر',
+      '.footer-grid > div:nth-child(3) .footer-links li:nth-child(4) a': 'العملاء',
+      '.footer-grid > div:nth-child(3) .footer-links li:nth-child(5) a': 'الوظائف',
+      '.footer-grid > div:nth-child(4) .footer-heading': 'تواصل معنا',
+      '.footer-grid > div:nth-child(4) .footer-links li:nth-child(3) a': 'الرياض، المملكة العربية السعودية',
+      '.footer-grid > div:nth-child(4) .footer-links li:nth-child(4) a': 'لينكدإن',
+      '.footer-grid > div:nth-child(4) .footer-links li:nth-child(5) a': 'تويتر / X',
+      '.footer-bottom p:first-child': '© ٢٠٢٦ DSI-Technology. جميع الحقوق محفوظة.',
+      '.footer-bottom p:last-child': 'سياسة الخصوصية · شروط الخدمة · سياسة ملفات الارتباط',
+    }
+  };
+
+  function applyLanguage(lang) {
+    const dict = translations[lang];
+    const isRTL = lang === 'ar';
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+
+    Object.entries(dict).forEach(([selector, value]) => {
+      if (selector === '__service-links__') {
+        document.querySelectorAll('.service-link').forEach(el => { el.innerHTML = value; });
+        return;
+      }
+      if (selector === '__w-card-back-main__') {
+        const el = document.querySelector('.w-card-back div > div:first-child > div:nth-child(2)');
+        if (el) el.textContent = value;
+        return;
+      }
+      if (selector === '__w-card-back-sub__') {
+        const el = document.querySelector('.w-card-back div > div:first-child > div:nth-child(3)');
+        if (el) el.textContent = value;
+        return;
+      }
+      if (selector === '__w-card-back-yoy-label__') {
+        const el = document.querySelector('.w-card-back div > div:last-child > div:first-child');
+        if (el) el.textContent = value;
+        return;
+      }
+      const el = document.querySelector(selector);
+      if (el) el.innerHTML = value;
+    });
+
+    // Toggle active state
+    document.querySelectorAll('#lang-toggle button').forEach(b => {
+      b.classList.toggle('active', b.dataset.lang === lang);
+    });
+
+    // Persist
+    try { localStorage.setItem('dsi-lang', lang); } catch (e) {}
+  }
+
+  document.querySelectorAll('#lang-toggle button').forEach(btn => {
+    btn.addEventListener('click', () => applyLanguage(btn.dataset.lang));
+  });
+
+  // Initial load — respect stored preference
+  try {
+    const saved = localStorage.getItem('dsi-lang');
+    if (saved === 'ar') applyLanguage('ar');
+  } catch (e) {}
+</script>
+</body>
+</html>
